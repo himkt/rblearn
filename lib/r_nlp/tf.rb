@@ -7,6 +7,10 @@ module RNlp
     attr_reader :lang
     def initialize(lang)
       @lang = lang
+      unless lang == 'ja' || lang == 'en'
+        puts "lang #{@lang} is not compatible."
+        exit
+      end
     end
     def count(text)
       tf = Hash.new
@@ -23,7 +27,7 @@ module RNlp
           end
         end
       elsif @lang == 'en'
-        text.split(" ").each do |line|
+        text.split("\n").each do |line|
           line.split(" ").each do |word|
             if tf[word] == nil
               tf[word] = 1
@@ -32,9 +36,6 @@ module RNlp
             end
           end
         end
-      else
-        puts "lang #{@lang} is not compatible."
-        exit
       end
       return tf
     end
