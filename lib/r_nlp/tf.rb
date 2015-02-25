@@ -12,17 +12,24 @@ module RNlp
       tf = Hash.new
       if @lang == 'ja'
         nm = Natto::MeCab.new
-        text.each do |line|
-          nm.parse(title).each do |word|
-            tf[word.surface] = 1 if tf[word.surface] == nil
-            tf[word.surface] += 1
+        text.split("\n").each do |line|
+          nm.parse(line) do |word|
+            next if word.stat == 3
+            if tf[word.surface] == nil
+              tf[word.surface] = 1
+            else
+              tf[word.surface] += 1
+            end
           end
         end
       elsif @lang == 'en'
-        text.each do |line|
+        text.split(" ").each do |line|
           line.split(" ").each do |word|
-            tf[word] = 1 if tf[word] == nil
-            tf[word] += 1
+            if tf[word] == nil
+              tf[word] = 1
+            else
+              tf[word] += 1
+            end
           end
         end
       else
