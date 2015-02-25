@@ -22,7 +22,28 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Term Frequency(tf)
+
+```ruby
+a = RNlp::Tf.new('ja')
+text = '私は誰だ'
+
+p a.count(text)
+
+b = RNlp::Tf.new('en')
+text = 'who are you ?'
+
+p b.count(text)
+```
+
+### Inverse Document Frequency(idf)
+
+```ruby
+c = ['text 1 is hoge', 'text 2 is yeah', 'text 3 is hoge']
+
+idf = RNlp::Idf.new('en')
+p idf.calc_idf('hoge', c)
+```
 
 ## Development
 
