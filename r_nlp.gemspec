@@ -6,7 +6,7 @@ require 'r_nlp/version'
 Gem::Specification.new do |spec|
   spec.name          = "r_nlp"
   spec.version       = RNlp::VERSION
-  spec.authors       = ["Makoto Hiramatsu"]
+  spec.authors       = ["himkt"]
   spec.email         = ["s1311536@u.tsukuba.ac.jp"]
 
   spec.summary       = %q{for nlp}
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "natto"
+  spec.add_development_dependency "natto", "~> 0.9.7"
   spec.add_development_dependency "bundler", "~> 1.8"
   spec.add_development_dependency "rake", "~> 10.0"
 end
