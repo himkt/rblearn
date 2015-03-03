@@ -15,3 +15,6 @@ c = ['text 1 is hoge', 'text 2 is yeah', 'text 3 is hoge']
 idf = RNlp::Idf.new('en')
 p idf.calc_idf('hoge', c)
 
+str = 'これはテストです'
+morph = RNlp::Tokenize.new
+p morph.tokenize(str)
