@@ -1,6 +1,3 @@
-require 'numo/narray'
-require 'stopwords'
-require 'stemmify'
 
 module Rblearn
 
