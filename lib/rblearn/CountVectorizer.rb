@@ -2,6 +2,8 @@
 module Rblearn
 
 	class CountVectorizer
+
+    # TODO: consider the access controll about all variables
 		attr_accessor :feature_names, :doc_matrix, :token2index
 
 		# tokenizer: lambda function :: string -> Array<string>
