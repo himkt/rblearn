@@ -1,8 +1,15 @@
 # Rblearn
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rblearn`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?maxAge=2592000)](https://rubygems.org/gems/rblearn)
+[![GitHub issues](https://img.shields.io/github/issues/himkt/rblearn.svg)](https://github.com/himkt/rblearn/issues)
+[![GitHub stars](https://img.shields.io/github/stars/himkt/rblearn.svg)](https://github.com/himkt/rblearn/stargazers) 
+[![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg?maxAge=2592000)](https://github.com/himkt/rblearn) 
+[![GitHub commits](https://img.shields.io/github/commits-since/SubtitleEdit/subtitleedit/3.4.7.svg?maxAge=2592000)](https://github.com/himkt/rblearn)
 
-TODO: Delete this and the text above, and describe your gem
+ruby-learn is a library for machine learning.
+
+Now, we support cross-validation and feature extraction.
 
 ## Installation
 
@@ -22,7 +29,61 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Cross Validation
+
+CrossValidation provides two features for cross-validation and train_test_split.
+
+1. train_test_split
+
+  This method splits your dataset into train\_set and test\_set.
+
+  ```ruby
+  x\_train, y\_train, x\_test, y\_test = Rblearn::CrossValidation.train_test_split(x, y, 0.7).map(&:dup)
+  ```
+
+2. K-Fold
+
+  This method is for k-fold cross-validation.
+
+  three parameters are required.
+
+  1. n :: integer
+
+    n indicates the size of dataset.
+
+  2. n_folds :: integer
+
+    we specify the k by n_folds.
+
+  3. shuffle :: boolean
+
+    if shuffle is true, dataset are shuffled.
+
+  ```ruby
+  kf = Rblearn::CrossValidation::KFold.new(100, 10, true)
+  kf.create #=> list<list<train_set_indices, test_set_indices>>
+  ```
+
+### Count Vectorizer
+
+CountVectorizer is the feature extractor from texts.
+
+Constructor needs three parameters.
+
+1. tokenizer :: function
+
+2. lowercase :: boolean
+
+3. max_features :: integer
+
+
+for example, 
+
+```ruby
+cv = Rblearn::CountVectorizer.new(lambda{|feature| feature.split.map(&:stem)}, 1, 0.7)
+cv.fit_transform(features)
+```
+
 
 ## Development
 
