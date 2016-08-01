@@ -47,8 +47,6 @@ module Rblearn
 			end
 
 			all_vocaburaries.uniq!
-			word_frequency =  word_frequency.sort{|(_, value1), (_, value2)| value2 <=> value1}
-
       all_vocaburaries.each do |token|
         tf = 1 + Math.log(word_frequency[token])
         idf = Math.log(1+(document_size/document_frequency[token]))
@@ -56,7 +54,6 @@ module Rblearn
       end
 
       word_tfidf_score = word_tfidf_score.sort{|(_, v1), (_, v2)| v2 <=> v1}
-
 			feature_names = (0...(word_tfidf_score.size * @max_feature).to_i).map{|i| word_tfidf_score[i][0]}
 
 			token2index = {}
