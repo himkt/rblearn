@@ -26,18 +26,38 @@ module Rblearn
 		def fit_transform(features)
 			all_vocaburaries = []
 			word_frequency = Hash.new{|hash, key| hash[key] = 0}
+      document_frequency = Hash.new{|hash, key| hash[key] = 0}
+      word_tfidf_score = Hash.new{|hash, key| hash[key] = 0}
+      document_size = features.size
 
 			features.each do |feature|
-				@tokenizer.call(feature).each do |token|
+        token_list = @tokenizer.call(feature)
+
+        # compute tf-value
+				token_list.each do |token|
 					token.downcase! if @lowercase
-					all_vocaburaries << token
 					word_frequency[token] += 1
 				end
+
+        # compute df-value
+        token_list.uniq.each do |token|
+          document_frequency[token] += 1
+					all_vocaburaries << token
+        end
 			end
 
 			all_vocaburaries.uniq!
 			word_frequency =  word_frequency.sort{|(_, value1), (_, value2)| value2 <=> value1}
-			feature_names = (0...(word_frequency.size * @max_feature).to_i).map{|i| word_frequency[i][0]}
+
+      all_vocaburaries.each do |token|
+        tf = 1 + Math.log(word_frequency[token])
+        idf = Math.log(1+(document_size/document_frequency[token]))
+        word_tfidf_score[token] = tf * idf
+      end
+
+      word_tfidf_score = word_tfidf_score.sort{|(_, v1), (_, v2)| v2 <=> v1}
+
+			feature_names = (0...(word_tfidf_score.size * @max_feature).to_i).map{|i| word_tfidf_score[i][0]}
 
 			token2index = {}
 			feature_names.each_with_index do |token, i|
