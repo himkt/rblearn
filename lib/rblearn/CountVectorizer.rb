@@ -3,7 +3,7 @@ module Rblearn
 
   class CountVectorizer
     # TODO: consider the access controll about all variables
-    attr_accessor :token2index
+    attr_accessor :token2index, :doc_matrix
 
     # tokenizer: lambda function :: string -> Array<string>
     # lowcase: whether if words are lowercases :: bool
@@ -89,6 +89,7 @@ module Rblearn
 
       @feature_names = feature_names
       @token2index = token2index
+      @doc_matrix = doc_matrix
       return doc_matrix
     end
   end
